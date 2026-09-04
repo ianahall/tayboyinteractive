@@ -534,8 +534,11 @@ a.app:hover .app__url { color: var(--ink); }
 @media (max-width: 520px) {
   .top__meta span:first-child { display: none; }
   .top__meta .sep { display: none; }
-  .app__meta .label--muted { display: none; }
+  .app[data-app="daisy"] .app__meta .label--muted { display: none; }
+  .app__meta { flex-direction: column; align-items: flex-end; gap: 8px; }
   .app__meta .status { font-size: 10.5px; }
+  .app__url { color: var(--ink-2); }
+  .app__url::after { transform: scaleX(1); opacity: 0.5; }
   .foot { grid-template-columns: 1fr; gap: 8px; }
   .foot > :last-child { justify-self: start; }
 }
