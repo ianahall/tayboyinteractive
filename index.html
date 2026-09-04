@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tay Boy Interactive</title>
+  <meta name="description" content="Tay Boy Interactive is an interactive studio building digital products and petting cool dogs in Durham, North Carolina.">
+  <meta property="og:title" content="Tay Boy Interactive">
+  <meta property="og:description" content="An interactive studio building digital products and petting cool dogs in Durham, North Carolina.">
+  <meta property="og:image" content="assets/tay.png">
+  <meta name="theme-color" content="#0c0b0a">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,100..900,0..100,0..1;1,9..144,100..900,0..100,0..1&family=Hanken+Grotesk:wght@300..600&family=Fragment+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+  <main>
+    <section class="hero">
+      <div class="hero__text">
+        <h1 class="title" aria-label="Tay Boy Interactive">
+          <span class="title__line"><span class="title__inner" data-letters>Tay Boy</span></span>
+          <span class="title__line title__line--em"><span class="title__inner">Interactive</span></span>
+        </h1>
+        <p class="lede">An interactive studio building digital products and petting cool dogs in Durham, North&nbsp;Carolina.</p>
+      </div>
+
+      <figure class="print">
+        <div class="print__frame">
+          <img class="print__img" src="assets/tay.png" width="500" height="411"
+               alt="Tay, a black and white pit bull, sitting in the back seat of a car with eyes half closed." fetchpriority="high">
+          <canvas class="print__grain" aria-hidden="true"></canvas>
+          <div class="print__vignette" aria-hidden="true"></div>
+        </div>
+        <figcaption class="print__caption">
+          <span>Tay</span>
+          <span>Boy</span>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="soon" aria-labelledby="soon-heading">
+      <div class="soon__head">
+        <h2 id="soon-heading" class="label">In development</h2>
+      </div>
+
+      <ol class="apps">
+        <li><a class="app" data-app="cheddar" href="https://cheddarcam.com" target="_blank" rel="noopener">
+          <span class="app__num label">01</span>
+          <span class="app__glyph" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40">
+              <rect class="cam__body" x="4" y="9" width="32" height="24" rx="5"/>
+              <circle class="cam__lens" cx="20" cy="21" r="8"/>
+              <circle class="cam__iris" cx="20" cy="21" r="3"/>
+              <circle class="cam__flash" cx="20" cy="21" r="8"/>
+            </svg>
+          </span>
+          <span class="app__name">Cheddar</span>
+          <span class="app__desc">A camera built for creative kids. Say cheese, snap a photo, tell its story.</span>
+          <span class="app__meta">
+            <span class="label label--muted app__url">cheddarcam.com<svg viewBox="0 0 10 10" width="8" height="8" aria-hidden="true"><path d="M2 8 8 2M3 2h5v5" fill="none" stroke="currentColor" stroke-width="1.2"/></svg></span>
+            <span class="status"><i></i>Coming soon</span>
+          </span>
+        </a></li>
+
+        <li><div class="app" data-app="daisy">
+          <span class="app__num label">02</span>
+          <span class="app__glyph" aria-hidden="true">
+            <svg viewBox="0 0 40 40" width="40" height="40">
+              <circle class="rec__ring" cx="20" cy="20" r="14"/>
+              <circle class="rec__dot" cx="20" cy="20" r="6"/>
+            </svg>
+          </span>
+          <span class="app__name">Daisy</span>
+          <span class="app__desc">Turns an epic day into a video diary, automatically.</span>
+          <span class="app__meta">
+            <span class="label label--muted"><span class="tc" data-timecode>00:00:00</span></span>
+            <span class="status"><i></i>Coming soon</span>
+          </span>
+        </div></li>
+      </ol>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <span class="label label--muted">&copy; <span id="year">2026</span> Tay Boy Interactive</span>
+    <span class="label label--muted">Durham, North Carolina</span>
+  </footer>
+
+  <script src="main.js" defer></script>
+</body>
+</html>
