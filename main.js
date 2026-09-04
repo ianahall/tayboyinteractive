@@ -108,33 +108,8 @@
   /* ---------- Apps: live states on hover (or on scroll-in for touch) ---------- */
   const apps = document.querySelectorAll('.app');
 
-  // Daisy's timecode runs while the row is "live"
-  let tcTimer = null;
-  const tcEl = document.querySelector('[data-timecode]');
-  const pad = (n) => String(n).padStart(2, '0');
-  const startTC = () => {
-    if (!tcEl || tcTimer) return;
-    let frames = 0;
-    tcTimer = setInterval(() => {
-      frames++;
-      const s = Math.floor(frames / 24);
-      tcEl.textContent = `${pad(Math.floor(s / 60))}:${pad(s % 60)}:${pad(frames % 24)}`;
-    }, 1000 / 24);
-  };
-  const stopTC = () => {
-    clearInterval(tcTimer);
-    tcTimer = null;
-    if (tcEl) tcEl.textContent = '00:00:00';
-  };
-
-  const goLive = (el) => {
-    el.classList.add('is-live');
-    if (el.dataset.app === 'daisy') startTC();
-  };
-  const goIdle = (el) => {
-    el.classList.remove('is-live');
-    if (el.dataset.app === 'daisy') stopTC();
-  };
+  const goLive = (el) => el.classList.add('is-live');
+  const goIdle = (el) => el.classList.remove('is-live');
 
   if (finePointer) {
     apps.forEach((el) => {

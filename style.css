@@ -284,21 +284,29 @@ a.app:focus-visible { outline: 1px solid var(--ink); outline-offset: 6px; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  color: var(--ink-3);
   transition: color 0.4s;
 }
+a.app__url {
+  padding: 14px 0;
+  margin: -14px 0;
+}
+a.app__url:hover { color: var(--ink); }
 .app__url::after {
   content: "";
   position: absolute;
   left: 0;
   right: 14px;
-  bottom: -3px;
+  bottom: 11px;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.6s var(--ease-out);
 }
-a.app:hover .app__url::after { transform: scaleX(1); }
+.app__url:not(a)::after { bottom: -3px; }
+a.app:hover .app__url::after,
+a.app__url:hover::after { transform: scaleX(1); }
 a.app:hover .app__url { color: var(--ink); }
 
 /* hairline that draws in from the left on hover */
@@ -378,12 +386,6 @@ a.app:hover .app__url { color: var(--ink); }
 }
 .app[data-app="daisy"] .status i { animation-delay: -1.6s; }
 
-.tc {
-  font-variant-numeric: tabular-nums;
-  color: var(--ink-3);
-  transition: color 0.4s;
-}
-.app.is-live .tc { color: var(--rec); }
 
 /* Cheddar: a lens whose iris opens, and a shutter flash */
 .cam__body {
@@ -536,7 +538,6 @@ a.app:hover .app__url { color: var(--ink); }
 @media (max-width: 520px) {
   .top__meta span:first-child { display: none; }
   .top__meta .sep { display: none; }
-  .app[data-app="daisy"] .app__meta .label--muted { display: none; }
   .app__meta { flex-direction: column; align-items: flex-end; gap: 8px; }
   .app__meta .status { font-size: 10.5px; }
   .app__url { color: var(--ink-2); }
