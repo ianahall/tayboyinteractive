@@ -40,17 +40,39 @@ body {
   overflow-x: hidden;
 }
 
-/* Faint static grain over the whole page, so the print doesn't sit alone */
+/* Film grain over the whole page: a tiled noise texture that jumps position 12 times a second,
+   so it reads as film rather than a static overlay. Cheap: no canvas, one fixed layer. */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  inset: -160px;
   pointer-events: none;
   z-index: 50;
-  opacity: 0.045;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  background-size: 220px 220px;
+  opacity: 0.085;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  background-size: 160px 160px;
   mix-blend-mode: screen;
+  animation: grain-step 0.65s steps(1) infinite;
+}
+@keyframes grain-step {
+  0%     { transform: translate(0, 0); }
+  12.5%  { transform: translate(-37px, 61px); }
+  25%    { transform: translate(84px, -22px); }
+  37.5%  { transform: translate(-108px, -73px); }
+  50%    { transform: translate(51px, 96px); }
+  62.5%  { transform: translate(-64px, 18px); }
+  75%    { transform: translate(119px, 44px); }
+  87.5%  { transform: translate(-19px, -111px); }
+}
+
+/* A little light spill behind the print, so the black has depth around it */
+.print::before {
+  content: "";
+  position: absolute;
+  inset: -22% -28% -30%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side at 50% 45%, rgba(224, 190, 130, 0.075), transparent 72%);
 }
 
 ::selection { background: var(--ink); color: var(--bg); }
@@ -154,6 +176,7 @@ main {
 
 .print {
   margin: 0;
+  position: relative;
   justify-self: end;
   width: min(100%, 460px);
   animation: fade-up 1.6s var(--ease-out) 0.35s both;
@@ -242,11 +265,25 @@ a.app { cursor: pointer; }
 a.app:focus-visible { outline: 1px solid var(--ink); outline-offset: 6px; }
 
 .app__url {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 6px;
   transition: color 0.4s;
 }
+.app__url::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 14px;
+  bottom: -3px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease-out);
+}
+a.app:hover .app__url::after { transform: scaleX(1); }
 a.app:hover .app__url { color: var(--ink); }
 
 /* hairline that draws in from the left on hover */
@@ -264,7 +301,8 @@ a.app:hover .app__url { color: var(--ink); }
 }
 .app:hover::after { transform: scaleX(1); }
 
-.app__num { color: var(--ink-3); }
+.app__num { color: var(--ink-3); transition: color 0.5s; }
+.app:hover .app__num { color: var(--ink); }
 
 .app__glyph {
   display: block;
@@ -293,7 +331,9 @@ a.app:hover .app__url { color: var(--ink); }
   font-size: 16px;
   font-weight: 300;
   max-width: 40ch;
+  transition: color 0.5s;
 }
+.app:hover .app__desc { color: var(--ink); }
 
 .app__meta {
   display: flex;
@@ -453,4 +493,5 @@ a.app:hover .app__url { color: var(--ink); }
     transition-duration: 0.01ms !important;
   }
   .title__inner { transform: none; }
+  body::before { animation: none; }
 }
