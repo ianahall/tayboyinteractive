@@ -22,7 +22,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
-html { color-scheme: dark; scroll-behavior: smooth; }
+html { color-scheme: dark; scroll-behavior: smooth; overflow-x: clip; }
 
 body {
   margin: 0;
@@ -37,7 +37,7 @@ body {
   text-rendering: optimizeLegibility;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 /* Film grain over the whole page: a tiled noise texture that jumps position 12 times a second,
@@ -510,6 +510,7 @@ a.app:hover .app__url { color: var(--ink); }
     width: min(100%, 420px);
     order: -1;
   }
+  .print::before { inset: -12% -5% -16%; }
   .title { font-size: clamp(60px, 15.5vw, 120px); }
 
   .app {
