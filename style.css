@@ -437,13 +437,15 @@ a.app:hover .app__url { color: var(--ink); }
   position: relative;
   color: var(--ink-2);
   transition: color 0.4s;
+  padding: 14px 0;
+  margin: -14px 0;
 }
 .mail::after {
   content: "";
   position: absolute;
   left: 0;
   right: 0;
-  bottom: -3px;
+  bottom: 11px;
   height: 1px;
   background: currentColor;
   transform: scaleX(0);
