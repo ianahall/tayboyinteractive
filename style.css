@@ -385,7 +385,7 @@ a.app:hover .app__url { color: var(--ink); }
   box-shadow: 0 0 0 0 rgba(224, 166, 60, 0.5);
   animation: breathe 3.2s ease-in-out infinite;
 }
-.app[data-app="daisy"] .status i { animation-delay: -1.6s; }
+.app[data-app="dailies"] .status i { animation-delay: -1.6s; }
 
 
 /* Cheddar: a lens whose iris opens, and a shutter flash */
@@ -410,7 +410,7 @@ a.app:hover .app__url { color: var(--ink); }
 .app[data-app="cheddar"]:hover .cam__iris { r: 6.5; }
 .app[data-app="cheddar"].is-live .cam__flash { animation: shutter 0.5s ease-out 1; }
 
-/* Daisy: REC */
+/* Dailies: REC */
 .rec__ring {
   fill: none;
   stroke: currentColor;
@@ -420,7 +420,7 @@ a.app:hover .app__url { color: var(--ink); }
   fill: currentColor;
   transition: fill 0.4s;
 }
-.app[data-app="daisy"].is-live .rec__dot {
+.app[data-app="dailies"].is-live .rec__dot {
   fill: var(--rec);
   animation: blink 1s steps(1) infinite;
 }
