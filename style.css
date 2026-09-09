@@ -190,7 +190,8 @@ main {
   margin: 0;
   position: relative;
   justify-self: end;
-  width: min(100%, 460px);
+  /* 2:3 print: cap the width by viewport height so the frame stays above the fold on short laptops */
+  width: min(100%, 460px, calc((100svh - 200px) * 2 / 3));
   animation: fade-up 1.6s var(--ease-out) 0.35s both;
 }
 
@@ -198,7 +199,7 @@ main {
   position: relative;
   overflow: hidden;
   background: var(--bg-2);
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 2 / 3;
   box-shadow:
     0 0 0 1px var(--line),
     0 40px 80px -30px rgba(0, 0, 0, 0.8);
