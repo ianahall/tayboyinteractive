@@ -254,8 +254,7 @@
     }
     return out;
   }
-  function cutAll() {
-    /* hand-cut edges for the color blocks and the photo: a rectangle in pixel units, bent by the same noise, redone on resize */
+  /* hand-cut edges for the color blocks and the photo: a rectangle in pixel units, bent by the same noise, redone on resize */
   function cutRect(w, h, seed) {
     var r = 10;
     var d = "M " + r + " 0 L " + (w - r) + " 0 Q " + w + " 0 " + w + " " + r + " L " + w + " " + (h - r) + " Q " + w + " " + h + " " + (w - r) + " " + h +
@@ -279,8 +278,7 @@
     Array.prototype.forEach.call(document.querySelectorAll(".product, .photo"), function (el) { ro.observe(el); });
   } else { window.addEventListener("resize", fitEdges); }
 
-  function renderMark() {
-  })();
+})();
 </script>
 
 </body>
