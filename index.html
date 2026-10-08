@@ -58,7 +58,15 @@
   .hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 64px); align-items: end; padding-block: clamp(24px, 4vw, 56px) clamp(32px, 4vw, 56px); }
   .hero-left { display: grid; gap: clamp(var(--s3), 3vw, var(--s5)); min-width: 0; }
   .photo { margin: 0; aspect-ratio: 1; max-width: 100%; --rest: rotate(-1.6deg) translateY(-8px); transform: var(--rest); animation: photoIn .7s cubic-bezier(.2, .9, .25, 1) .55s both; }
-  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; clip-path: url(#photo-clip); }
+  .photo { position: relative; }
+  /* film grade: a little less color, warmer, blacks lifted like a faded print, with its own heavier grain */
+  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; clip-path: url(#photo-clip); filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); }
+  .photo::before, .photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; clip-path: url(#photo-clip); }
+  .photo::before { background: #f1d9bc; mix-blend-mode: screen; opacity: .14; }
+  .photo::after {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.2' intercept='-0.6'/><feFuncG type='linear' slope='2.2' intercept='-0.6'/><feFuncB type='linear' slope='2.2' intercept='-0.6'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+    background-size: 280px 280px; mix-blend-mode: overlay; opacity: .55; animation: grain .9s steps(1) infinite;
+  }
   /* pasted-up, not gridded: each piece sits at its own slight angle and offset, like a proof taped to a board */
   .brand { display: grid; gap: var(--s1); width: min(100%, 480px); max-width: 100%; font-size: 0; transform: rotate(-0.8deg); transform-origin: left bottom; }
   .mark { display: block; width: 100%; }
@@ -95,7 +103,7 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .blk, .photo, .product { animation: none !important; }
-    body::before { animation: none !important; }
+    body::before, .photo::after { animation: none !important; }
   }
   .hero-copy { display: grid; gap: var(--s2); padding-left: var(--s1); }
   .sub { width: 58%; transform: rotate(-1.4deg) translateX(6px); transform-origin: left center; }
