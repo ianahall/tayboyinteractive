@@ -71,9 +71,14 @@
     0% { background-position: 0 0; } 16% { background-position: -58px 31px; } 33% { background-position: 44px -67px; }
     50% { background-position: -23px 52px; } 66% { background-position: 71px 14px; } 83% { background-position: -39px -45px; } 100% { background-position: 0 0; }
   }
-  .photo img { animation: flicker 2.3s steps(1) infinite, weave 1.7s steps(1) infinite; }
-  @keyframes flicker { 0% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); } 12% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(.98); } 24% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.05); } 40% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.01); } 58% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(.96); } 72% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.04); } 88% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.0); } }
-  @keyframes weave { 0% { translate: 0 0; } 25% { translate: .6px -.4px; } 50% { translate: -.5px .5px; } 75% { translate: .3px .6px; } 100% { translate: 0 0; } }
+  .photo img { animation: flicker 6s ease-in-out infinite, weave 3.4s ease-in-out infinite; }
+  @keyframes flicker {
+    0%, 100% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); }
+    30%      { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.0); }
+    55%      { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.045); }
+    80%      { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.015); }
+  }
+  @keyframes weave { 0%, 100% { translate: 0 0; } 25% { translate: .6px -.4px; } 50% { translate: -.5px .5px; } 75% { translate: .3px .6px; } }
   /* pasted-up, not gridded: each piece sits at its own slight angle and offset, like a proof taped to a board */
   .brand { display: grid; gap: var(--s1); width: min(100%, 480px); max-width: 100%; font-size: 0; transform: rotate(-0.8deg); transform-origin: left bottom; }
   .mark { display: block; width: 100%; }
