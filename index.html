@@ -71,6 +71,7 @@
   /* ---- motion: one authored moment, the page gets stamped. Yellow hits first, ink lands on top, then the photo is taped on. ---- */
   .blk { transform-box: fill-box; transform-origin: center; animation: stamp .42s cubic-bezier(.2, .9, .25, 1) both; animation-delay: calc(140ms + var(--i) * 75ms); }
   .ghost .blk { animation-delay: calc(40ms + var(--i) * 75ms); }
+  .sub .blk { animation-delay: 560ms; }   /* INTERACTIVE lands as one piece, right after BOY */
   @keyframes stamp {
     from { opacity: 0; transform: scale(1.3); }
     55%  { opacity: 1; transform: scale(.955); }
