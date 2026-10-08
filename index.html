@@ -64,9 +64,16 @@
   .photo::before, .photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; clip-path: url(#photo-clip); }
   .photo::before { background: #f1d9bc; mix-blend-mode: screen; opacity: .14; }
   .photo::after {
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='280' height='280'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' numOctaves='2' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.2' intercept='-0.6'/><feFuncG type='linear' slope='2.2' intercept='-0.6'/><feFuncB type='linear' slope='2.2' intercept='-0.6'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
-    background-size: 280px 280px; mix-blend-mode: overlay; opacity: .55; animation: grain .9s steps(1) infinite;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' seed='9' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/><feComponentTransfer><feFuncR type='linear' slope='2.8' intercept='-0.9'/><feFuncG type='linear' slope='2.8' intercept='-0.9'/><feFuncB type='linear' slope='2.8' intercept='-0.9'/></feComponentTransfer></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+    background-size: 220px 220px; mix-blend-mode: overlay; opacity: .85; animation: videograin .5s steps(1) infinite;
   }
+  @keyframes videograin {
+    0% { background-position: 0 0; } 16% { background-position: -58px 31px; } 33% { background-position: 44px -67px; }
+    50% { background-position: -23px 52px; } 66% { background-position: 71px 14px; } 83% { background-position: -39px -45px; } 100% { background-position: 0 0; }
+  }
+  .photo img { animation: flicker 2.3s steps(1) infinite, weave 1.7s steps(1) infinite; }
+  @keyframes flicker { 0% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); } 12% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(.98); } 24% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.05); } 40% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.01); } 58% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(.96); } 72% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.04); } 88% { filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.0); } }
+  @keyframes weave { 0% { translate: 0 0; } 25% { translate: .6px -.4px; } 50% { translate: -.5px .5px; } 75% { translate: .3px .6px; } 100% { translate: 0 0; } }
   /* pasted-up, not gridded: each piece sits at its own slight angle and offset, like a proof taped to a board */
   .brand { display: grid; gap: var(--s1); width: min(100%, 480px); max-width: 100%; font-size: 0; transform: rotate(-0.8deg); transform-origin: left bottom; }
   .mark { display: block; width: 100%; }
@@ -77,7 +84,7 @@
   .mark .ghost { mix-blend-mode: multiply; opacity: .95; }
 
   /* ---- motion: one authored moment, the page gets stamped. Yellow hits first, ink lands on top, then the photo is taped on. ---- */
-  .blk { transform-box: fill-box; transform-origin: center; animation: stamp .42s cubic-bezier(.2, .9, .25, 1) both; animation-delay: calc(140ms + var(--i) * 75ms); }
+  .blk { transform-box: fill-box; transform-origin: center; animation: stamp .42s cubic-bezier(.2, .9, .25, 1) both; animation-delay: calc(140ms + var(--i) * 75ms); transition: translate .45s cubic-bezier(.2, .8, .2, 1), rotate .45s cubic-bezier(.2, .8, .2, 1); }
   .ghost .blk { animation-delay: calc(40ms + var(--i) * 75ms); }
   .sub .blk { animation-delay: 560ms; }   /* INTERACTIVE lands as one piece, right after BOY */
   @keyframes stamp {
@@ -103,17 +110,17 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .blk, .photo, .product { animation: none !important; }
-    body::before, .photo::after { animation: none !important; }
+    body::before, .photo::after, .photo img { animation: none !important; }
   }
   .hero-copy { display: grid; gap: var(--s2); padding-left: var(--s1); }
-  .sub { width: 58%; transform: rotate(-1.4deg) translateX(6px); transform-origin: left center; }
+  .sub { width: 68%; transform: rotate(-0.6deg) translateX(4px); transform-origin: left center; }
   .sub svg { display: block; width: 100%; height: auto; overflow: visible; fill: var(--ink); }
   .tagline { font-size: clamp(20px, 2.2vw, 28px); font-weight: 400; line-height: 1.3; max-width: 38ch; color: var(--ink-soft); }
 
   /* ---- products: two compact colored blocks ---- */
   .products { display: grid; grid-template-columns: 1.08fr 0.92fr; gap: var(--s3); }
   .product { padding: clamp(var(--s3), 2.8vw, var(--s5)); display: grid; gap: var(--s2); align-content: start; min-width: 0; position: relative; isolation: isolate; border-radius: 10px; }
-  .product { transform: var(--rest); }
+  .product { transform: var(--rest); transition: translate .4s cubic-bezier(.2, .8, .2, 1), rotate .4s cubic-bezier(.2, .8, .2, 1); }
   .product.cheddar { background: var(--sun); --rest: rotate(-0.7deg); }
   .product.dailies { background: var(--blue); --rest: rotate(0.9deg) translateY(10px); }
   .product.cut { background: transparent; border-radius: 0; }
@@ -286,6 +293,39 @@
     var ro = new ResizeObserver(function () { fitEdges(); });
     Array.prototype.forEach.call(document.querySelectorAll(".product, .photo"), function (el) { ro.observe(el); });
   } else { window.addEventListener("resize", fitEdges); }
+
+  /* nudge: letters lean away from the cursor like loose type on a board; the color blocks tilt toward it. Springs back on leave. */
+  (function () {
+    if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var REACH = 80, PUSH = 8;
+    function nudge(container, e) {
+      var blks = container.querySelectorAll(".blk");
+      for (var i = 0; i < blks.length; i++) {
+        var b = blks[i].getBoundingClientRect(), cx = b.left + b.width / 2, cy = b.top + b.height / 2;
+        var dx = cx - e.clientX, dy = cy - e.clientY, d = Math.hypot(dx, dy) || 1, reach = REACH + b.width / 2;
+        if (d < reach) {
+          var k = 1 - d / reach, ghost = blks[i].parentNode.className.baseVal === "tay" || blks[i].parentNode.className.baseVal === "boy" ? (blks[i].parentNode.parentNode.className.baseVal === "ghost" ? 0.7 : 1) : 1;
+          var tx = dx / d * PUSH * k * ghost, ty = dy / d * PUSH * k * ghost;
+          blks[i].style.translate = tx.toFixed(1) + "px " + ty.toFixed(1) + "px";
+          blks[i].style.rotate = (tx * 0.35).toFixed(2) + "deg";
+        } else { blks[i].style.translate = ""; blks[i].style.rotate = ""; }
+      }
+    }
+    function settle(container) { var blks = container.querySelectorAll(".blk"); for (var i = 0; i < blks.length; i++) { blks[i].style.translate = ""; blks[i].style.rotate = ""; } }
+    ["mark", "sub"].forEach(function (id) {
+      var el = document.getElementById(id);
+      el.addEventListener("pointermove", function (e) { nudge(el, e); });
+      el.addEventListener("pointerleave", function () { settle(el); });
+    });
+    Array.prototype.forEach.call(document.querySelectorAll(".product"), function (p) {
+      p.addEventListener("pointermove", function (e) {
+        var b = p.getBoundingClientRect(), nx = (e.clientX - b.left) / b.width - .5, ny = (e.clientY - b.top) / b.height - .5;
+        p.style.translate = (nx * 12).toFixed(1) + "px " + (ny * 12).toFixed(1) + "px";
+        p.style.rotate = (nx * 1.8).toFixed(2) + "deg";
+      });
+      p.addEventListener("pointerleave", function () { p.style.translate = ""; p.style.rotate = ""; });
+    });
+  })();
 
 })();
 </script>
