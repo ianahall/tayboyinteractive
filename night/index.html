@@ -123,9 +123,9 @@
   }
   .title .ln .s1, .title .ln .s2 { content: none; }
   .title .ln::before { color: transparent; -webkit-text-stroke: 1px rgba(143,192,255,.45); transform: translate(calc(-22px + var(--mx) * -10px), calc(14px + var(--my) * 6px)) skewX(-14deg); opacity: .8; }
-  .title .ln::after  { color: transparent; -webkit-text-stroke: 1px rgba(255,42,74,.4);   transform: translate(calc(-44px + var(--mx) * -20px), calc(28px + var(--my) * 12px)) skewX(-14deg); opacity: .55; }
+  .title .ln::after  { color: transparent; -webkit-text-stroke: 1px rgba(138,77,255,.45);   transform: translate(calc(-44px + var(--mx) * -20px), calc(28px + var(--my) * 12px)) skewX(-14deg); opacity: .55; }
   .title .ln .s1 { color: transparent; -webkit-text-stroke: 1px rgba(143,192,255,.22); transform: translate(calc(-66px + var(--mx) * -30px), calc(42px + var(--my) * 18px)) skewX(-14deg); opacity: .35; }
-  .title .ln .s2 { color: transparent; -webkit-text-stroke: 1px rgba(255,42,74,.16);   transform: translate(calc(-88px + var(--mx) * -40px), calc(56px + var(--my) * 24px)) skewX(-14deg); opacity: .2; }
+  .title .ln .s2 { color: transparent; -webkit-text-stroke: 1px rgba(138,77,255,.2);   transform: translate(calc(-88px + var(--mx) * -40px), calc(56px + var(--my) * 24px)) skewX(-14deg); opacity: .2; }
   .boot .title .ln::before { animation: streak1 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
   .boot .title .ln::after  { animation: streak2 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
   .boot .title .ln .s1 { animation: streak3 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
@@ -138,10 +138,28 @@
   .title .face {
     position: relative; display: block;
     color: #fff; -webkit-text-stroke: 1px rgba(255,255,255,.55);
-    background: linear-gradient(100deg, var(--red-hot) 0%, #fff 32%, #ffffff 44%, #e8f0ff 50%, #fff 56%, #fff 68%, var(--blue-hot) 100%);
+    /* deep space behind the mask: three star layers over a nebula, drifting at different speeds */
+    background-image:
+      radial-gradient(circle, #ffffff 1.3px, transparent 2.6px),
+      radial-gradient(circle, rgba(205,182,255,.95) 1px, transparent 2.2px),
+      radial-gradient(circle, rgba(143,192,255,.9) .8px, transparent 1.8px),
+      radial-gradient(42% 60% at 28% 45%, rgba(138,77,255,.75), transparent 70%),
+      radial-gradient(38% 55% at 72% 55%, rgba(42,108,255,.7), transparent 70%),
+      radial-gradient(30% 40% at 55% 20%, rgba(255,255,255,.18), transparent 70%),
+      linear-gradient(160deg, #0a1034, #1b1552 45%, #071b3e 100%);
+    background-size: 92px 84px, 150px 128px, 64px 70px, 100% 100%, 100% 100%, 100% 100%, 100% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-text-stroke: 2px rgba(255,255,255,.85);
+    text-shadow: none;
+    animation: skydrift 60s linear infinite;
+  }
+  @keyframes skydrift { to { background-position: 180px 90px, 108px 54px, 252px 144px, 0 0, 0 0, 0 0, 0 0; } }
+  .title .gel {
+    position: absolute; left: 0; top: 0; z-index: 3; white-space: nowrap; pointer-events: none;
+    mix-blend-mode: screen; opacity: .6;
+    background: linear-gradient(100deg, var(--purple) 0%, var(--purple-hot) 24%, #ffffff 44%, #e8f0ff 50%, #ffffff 56%, var(--blue-hot) 76%, var(--blue) 100%);
     background-size: 220% 100%; background-position: 50% 50%;
     -webkit-background-clip: text; background-clip: text; color: transparent;
-    text-shadow: none;
     animation: sheen 7s ease-in-out 4s infinite;
   }
   @keyframes sheen { 0%, 100% { background-position: 50% 50%; } 35% { background-position: 0% 50%; } 70% { background-position: 100% 50%; } }
@@ -153,9 +171,9 @@
     text-shadow:
       0 0 2px #fff,
       0 0 12px rgba(255,255,255,.9),
-      -6px 0 28px rgba(255,42,74,.9),
+      -6px 0 28px rgba(138,77,255,.9),
        6px 0 28px rgba(42,108,255,.95),
-      -14px 0 70px rgba(255,42,74,.55),
+      -14px 0 70px rgba(138,77,255,.55),
        14px 0 70px rgba(42,108,255,.6),
       0 0 140px rgba(143,192,255,.45);
     filter: blur(.6px);
@@ -168,22 +186,26 @@
   .title .ln.small { font-size: .3em; letter-spacing: .5em; margin-top: .7em; padding-left: .5em; }
   .title .ln.small .glow, .title .ln.small .ext { left: .5em; }
   .title .ln.small .ext { text-shadow: 1px 1px 0 #1a3fa8, 2px 2px 0 #15368f, 3px 3px 0 #0f2969, 4px 4px 0 #091b44, 5px 5px 0 #040b19, 0 0 20px rgba(42,108,255,.5); }
-  .title .ln.small .face { background: linear-gradient(90deg, var(--blue-hot), #fff 50%, var(--blue-hot)); -webkit-background-clip: text; background-clip: text; }
+  .title .ln.small .face { background: linear-gradient(90deg, var(--blue-hot), #fff 50%, var(--blue-hot)); background-size: 100% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-stroke: 0; animation: none; }
   .title .ln.small .glow { text-shadow: 0 0 2px #fff, 0 0 10px rgba(143,192,255,.9), 0 0 30px rgba(42,108,255,.9), 0 0 70px rgba(42,108,255,.5); }
   .title .ln.small::before, .title .ln.small::after, .title .ln.small .s1, .title .ln.small .s2 { display: none; }
 
   .tagline { margin-top: clamp(40px, 6vw, 88px); max-width: 46ch; text-wrap: balance; font-size: clamp(18px, 1.6vw, 22px); font-weight: 400; color: var(--white); text-shadow: 0 0 6px rgba(244,246,255,.75), 0 0 22px rgba(143,192,255,.45); }
 
   /* ---- CRT gate for the dog ---- */
-  .act { display: grid; justify-items: center; padding-block: 0 clamp(72px, 10vw, 160px); }
+  .act { display: grid; justify-items: center; padding-block: 0 clamp(140px, 18vw, 300px); }
   .gate { position: relative; width: min(100%, 520px); aspect-ratio: 1; }
   .bezel {
     position: absolute; inset: 0; border-radius: 10% / 9%;
     background: linear-gradient(160deg, #1a1b26, #090a12 60%, #14151f);
     box-shadow:
       inset 0 0 0 2px rgba(255,255,255,.06), inset 0 2px 8px rgba(255,255,255,.08), inset 0 -10px 30px rgba(0,0,0,.8),
-      0 0 0 1px rgba(143,192,255,.25), 0 0 24px rgba(42,108,255,.45), 0 0 90px rgba(42,108,255,.25), -24px 0 80px rgba(255,42,74,.18), 24px 0 80px rgba(42,108,255,.22);
+      0 0 0 1px rgba(143,192,255,.25), 0 0 24px rgba(42,108,255,.45), 0 0 90px rgba(42,108,255,.25), -24px 0 80px rgba(138,77,255,.22), 24px 0 80px rgba(42,108,255,.22);
   }
+  /* the floor reflection under the monolith */
+  .gate .reflect { position: absolute; left: 7%; right: 7%; top: calc(100% + 14px); aspect-ratio: 1; border-radius: 9% / 8%; overflow: hidden; transform: scaleY(-1); opacity: .26; filter: blur(3px); pointer-events: none;
+    -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,.9), transparent 70%); mask-image: linear-gradient(to top, rgba(0,0,0,.9), transparent 70%); }
+  .gate .reflect img { display: block; width: 100%; height: 100%; object-fit: cover; filter: contrast(1.15) saturate(.75) brightness(.7) sepia(.1) hue-rotate(-8deg); }
   .glass {
     position: absolute; inset: 7%; border-radius: 9% / 8%; overflow: hidden; background: #000;
     box-shadow: inset 0 0 40px rgba(0,0,0,.9), inset 0 0 0 1px rgba(143,192,255,.35);
@@ -244,14 +266,15 @@
   .boot .mask::after { animation: flash .8s ease-out 1.85s both; }
   @keyframes flash { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
   .boot .tagline { animation: lightup 1s ease-out 2.3s both; }
-  .boot .gate { animation: lightup .6s ease-out 2.4s both; }
-  .boot .glass { animation: crtOn .8s cubic-bezier(.2,.8,.2,1) 2.65s both; }
+  .boot .gate { animation: rise .9s cubic-bezier(.2,.8,.2,1) 2.3s both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(420px); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
+  .boot .glass { animation: crtOn .8s cubic-bezier(.2,.8,.2,1) 3.2s both; }
   @keyframes crtOn { 0% { transform: scaleY(.006) scaleX(.5); filter: brightness(8) saturate(0); } 45% { transform: scaleY(.012) scaleX(1); filter: brightness(5) saturate(0); } 70% { transform: scaleY(1) scaleX(1); filter: brightness(1.8); } 100% { transform: none; filter: none; } }
-  .boot .flare { animation: twinkle 3.2s ease-in-out infinite, lightup .5s ease-out 3.2s both; }
+  .boot .flare { animation: twinkle 3.2s ease-in-out infinite, lightup .5s ease-out 3.9s both; }
   .boot .panel { animation: neonOn 1s steps(1) both; }
-  .boot .panel.cheddar { animation-delay: 3.1s; } .boot .panel.dailies { animation-delay: 3.25s; } .boot .panel.postcards { animation-delay: 3.4s; } .boot .panel.emoji { animation-delay: 3.55s; }
+  .boot .panel.cheddar { animation-delay: 3.8s; } .boot .panel.dailies { animation-delay: 3.95s; } .boot .panel.postcards { animation-delay: 4.1s; } .boot .panel.emoji { animation-delay: 4.25s; }
   @keyframes neonOn { 0% { opacity: 0; } 8% { opacity: .9; } 16% { opacity: .08; } 30% { opacity: 1; } 38% { opacity: .25; } 52% { opacity: 1; } 60% { opacity: .55; } 100% { opacity: 1; } }
-  .boot footer { animation: lightup 1s ease-out 3.9s both; }
+  .boot footer { animation: lightup 1s ease-out 4.6s both; }
   .panel .icon.placeholder { display: grid; place-items: center; background: #0b0c16; color: var(--gel-hot); font-family: var(--title); font-size: 24px; text-shadow: 0 0 10px var(--gel-hot); }
   .panel .soon { display: block; margin-top: 18px; margin-bottom: -8px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gel-hot); text-shadow: 0 0 8px var(--gel-hot), 0 0 22px var(--gel); animation: pulse 2.6s ease-in-out infinite alternate; }
   /* the gel edge: a bright refracted rim that brightens on hover */
@@ -303,7 +326,7 @@
   <header class="hero">
     <div class="mask">
       <h1 class="title" title="Replay the opening">
-        <span class="ln" data-t="TAYBOY"><span class="s1" aria-hidden="true">TAYBOY</span><span class="s2" aria-hidden="true">TAYBOY</span><span class="ext" aria-hidden="true">TAYBOY</span><span class="glow" aria-hidden="true">TAYBOY</span><span class="face">TAYBOY</span></span>
+        <span class="ln" data-t="TAYBOY"><span class="s1" aria-hidden="true">TAYBOY</span><span class="s2" aria-hidden="true">TAYBOY</span><span class="ext" aria-hidden="true">TAYBOY</span><span class="glow" aria-hidden="true">TAYBOY</span><span class="face">TAYBOY</span><span class="gel" aria-hidden="true">TAYBOY</span></span>
         <span class="ln small"><span class="ext" aria-hidden="true">INTERACTIVE</span><span class="glow" aria-hidden="true">INTERACTIVE</span><span class="face">INTERACTIVE</span></span>
       </h1>
       <p class="tagline">An independent product studio building thoughtful software and petting the best dogs in Durham, North Carolina.</p>
@@ -315,6 +338,7 @@
       <div class="bezel"></div>
       <div class="glass"><a class="swap" href="/" title="Flip to the paper version" aria-label="Flip to the paper version of this page"><img src="/assets/tater.jpg" alt="Tay, a black and white dog in a blue bandana, looking up at the camera" width="1116" height="1116"></a></div>
       <div class="raster"></div>
+      <div class="reflect" aria-hidden="true"><img src="/assets/tater.jpg" alt="" width="1116" height="1116"></div>
       <span class="flare tl" aria-hidden="true"><i></i><i></i><b></b></span>
       <span class="flare tr" aria-hidden="true"><i></i><i></i><b></b></span>
       <span class="flare bl" aria-hidden="true"><i></i><i></i><b></b></span>
