@@ -342,6 +342,9 @@
     Array.prototype.forEach.call(document.querySelectorAll(".product, .photo"), function (el) { ro.observe(el); });
   } else { window.addEventListener("resize", fitEdges); }
 
+  /* reduced motion: SMIL has no CSS off switch, so pause the grain jitter in the glyph defs */
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { var gd = document.getElementById("glyph-defs"); if (gd && gd.pauseAnimations) gd.pauseAnimations(); }
+
   /* nudge: letters lean away from the cursor like loose type on a board; the color blocks tilt toward it. Springs back on leave. */
   (function () {
     if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
