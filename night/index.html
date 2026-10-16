@@ -196,7 +196,7 @@
   .panel.postcards { --gel: var(--purple); --gel-hot: var(--purple-hot); background: linear-gradient(160deg, rgba(138,77,255,.16), rgba(5,5,10,.55) 55%, rgba(42,108,255,.1)); animation-delay: 2.3s; }
   .panel.emoji { --gel: var(--amber); --gel-hot: var(--amber-hot); background: linear-gradient(160deg, rgba(255,176,42,.14), rgba(5,5,10,.55) 55%, rgba(255,42,74,.08)); animation-delay: 2.5s; }
   .panel .icon.placeholder { display: grid; place-items: center; background: #0b0c16; color: var(--gel-hot); font-family: var(--title); font-size: 24px; text-shadow: 0 0 10px var(--gel-hot); }
-  .panel .soon { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gel-hot); text-shadow: 0 0 8px var(--gel-hot), 0 0 22px var(--gel); animation: pulse 2.6s ease-in-out infinite alternate; }
+  .panel .soon { display: block; margin-top: 18px; margin-bottom: -8px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gel-hot); text-shadow: 0 0 8px var(--gel-hot), 0 0 22px var(--gel); animation: pulse 2.6s ease-in-out infinite alternate; }
   /* the gel edge: a bright refracted rim that brightens on hover */
   .panel::before { content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 1px; background: linear-gradient(120deg, var(--gel-hot), transparent 35%, transparent 65%, var(--gel-hot)); -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor; mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); mask-composite: exclude; opacity: .7; transition: opacity .3s; }
   /* the flare flash: a diagonal sheet of light that sweeps on hover */
@@ -278,11 +278,13 @@
         <div class="head"><span class="icon placeholder" aria-hidden="true">P</span><h2>Postcards</h2></div>
         <p>A simple app designed to send digital stories to folks you love.</p>
         <span class="soon">Coming soon</span>
+        <a href="mailto:ian@tayboyinteractive.com?subject=Postcards%20waitlist">Join the waitlist</a>
       </article>
       <article class="panel emoji" id="emoji-time">
         <div class="head"><span class="icon placeholder" aria-hidden="true">E</span><h2>Emoji Time</h2></div>
         <p>Cute and quirky games for kids to play with emojis.</p>
         <span class="soon">Coming soon</span>
+        <a href="mailto:ian@tayboyinteractive.com?subject=Emoji%20Time%20waitlist">Join the waitlist</a>
       </article>
     </section>
   </main>
