@@ -385,8 +385,10 @@
   var root = document.documentElement, fine = window.matchMedia("(pointer: fine)").matches;
   var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   /* the opening ident: add .boot after first paint so the sequence starts from black; click the title to run it again */
+  /* it plays once per visit: a refresh or a flip back lands on the finished page with the links already lit. Click the title to replay. */
+  var seen = false; try { seen = sessionStorage.getItem("tb-ident") === "1"; sessionStorage.setItem("tb-ident", "1"); } catch (e) {}
   if (!still) {
-    requestAnimationFrame(function () { requestAnimationFrame(function () { document.body.classList.add("boot"); }); });
+    if (!seen) requestAnimationFrame(function () { requestAnimationFrame(function () { document.body.classList.add("boot"); }); });
     document.querySelector(".title").addEventListener("click", function () {
       document.body.classList.remove("boot"); void document.body.offsetWidth; document.body.classList.add("boot");
     });
