@@ -61,8 +61,10 @@
   .hero-left { display: grid; gap: clamp(var(--s4), 4vw, var(--s6)); min-width: 0; }
   .photo { margin: 0; aspect-ratio: 1; max-width: 100%; --rest: rotate(-1.6deg) translateY(-8px); transform: var(--rest); animation: photoIn .7s cubic-bezier(.2, .9, .25, 1) .55s both; }
   .photo { position: relative; }
+  .photo .swap { display: block; width: 100%; height: 100%; cursor: pointer; }
+  .photo .swap:focus-visible { outline: 3px solid var(--blue); outline-offset: 6px; }
   /* film grade: a little less color, warmer, blacks lifted like a faded print, with its own heavier grain */
-  .photo img { display: block; width: 100%; height: 100%; object-fit: cover; clip-path: url(#photo-clip); filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); }
+  .photo img { display: block; width: 100%; aspect-ratio: 1; height: auto; object-fit: cover; clip-path: url(#photo-clip); filter: saturate(.78) contrast(1.06) sepia(.18) brightness(1.03); }
   .photo::before, .photo::after { content: ""; position: absolute; inset: 0; pointer-events: none; clip-path: url(#photo-clip); }
   .photo::before { background: #f1d9bc; mix-blend-mode: screen; opacity: .14; }
   .photo::after {
@@ -211,7 +213,7 @@
       </div>
     </div>
     <figure class="photo">
-      <img src="assets/tater.jpg" alt="Tay, a black and white dog in a blue bandana, looking up at the camera" width="1116" height="1116">
+      <a class="swap" href="/night/" title="Flip to the night version" aria-label="Flip to the night version of this page"><img src="assets/tater.jpg" alt="Tay, a black and white dog in a blue bandana, looking up at the camera" width="1116" height="1116"></a>
     </figure>
   </header>
 
