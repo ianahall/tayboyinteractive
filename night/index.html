@@ -302,14 +302,6 @@
   footer { padding-block: 22px 56px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); border-top: 1px solid rgba(143,192,255,.18); }
 
 
-  /* ---- what two panels show besides their name: Cheddar's mascot, lit like everything else in the room; Emoji Time's three emojis and the story they got ---- */
-  .panel .row, .panel .show { position: relative; z-index: 1; min-width: 0; }
-  .panel .row { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 20px; }
-  .mascot { width: clamp(140px, 14vw, 190px); height: auto; justify-self: end; margin: -4px -6px -14px 0;
-    filter: drop-shadow(0 0 16px color-mix(in srgb, var(--gel) 60%, transparent)) drop-shadow(0 12px 22px rgba(0,0,0,.6)); }
-  .emojis { font-size: clamp(56px, 6vw, 88px); line-height: 1; letter-spacing: .08em; margin: 20px 0 16px -4px; filter: drop-shadow(0 0 12px rgba(255,176,42,.6)) drop-shadow(0 0 36px rgba(255,176,42,.28)); }
-  .story { display: grid; gap: 8px; margin-bottom: 4px; }
-  .story b { font-family: var(--title); font-weight: 400; letter-spacing: .04em; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.15; color: #fff; text-shadow: 0 0 6px #fff, 0 0 22px var(--gel-hot), 0 0 50px var(--gel); }
 
   @media (max-width: 860px) {
     .hero { min-height: 0; }
@@ -317,7 +309,6 @@
     .panels { grid-template-columns: 1fr; }
     .title .ln::after, .title .ln .s2 { display: none; }
     .title { transform: none; width: 100%; }
-    .mascot { width: 120px; }
   }
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation: none !important; transition: none !important; }
@@ -368,10 +359,7 @@
       <article class="panel cheddar" id="cheddar">
         <div class="head"><img class="icon" src="/assets/cheddar-icon.png" alt="" width="256" height="256"><h2>Cheddar</h2></div>
         <p>A cool camera built for your creative kid. Kids snap photos with their voice, then turn them into stories, silly voices, scavenger hunts and games, all made from their own pictures, all on the phone. Simple enough for a three-year-old. No ads, no tracking, and photos stay on the device.</p>
-        <div class="row">
-          <a href="https://play.google.com/store/apps/details?id=com.cheddarcam.android">Get it on Google Play</a>
-          <img class="mascot" src="/assets/cheddar-mascot.webp" alt="Cheddar, the cheese mascot, waving with a camera" width="738" height="774">
-        </div>
+        <a href="https://play.google.com/store/apps/details?id=com.cheddarcam.android">Get it on Google Play</a>
       </article>
       <article class="panel dailies" id="dailies">
         <div class="head"><img class="icon" src="/assets/dailies-icon.png" alt="" width="256" height="256"><h2>Dailies</h2></div>
@@ -386,11 +374,6 @@
       <article class="panel emoji" id="emoji-time">
         <div class="head"><h2>Emoji Time</h2></div>
         <p>Pick three emojis and hear a short, silly story about them, read out loud, for a grown-up and a kid to listen to together. Coming soon.</p>
-        <div class="show emojis" role="img" aria-label="A duck, a castle and a crown">🦆 🏰 👑</div><!-- the three emojis are the product's own content, what the child picked -->
-        <div class="show story">
-          <b>Ta-Raaa!</b>
-          <p>Doris the duck lived in the moat, and every morning she listened to the trumpets. Doris wanted to be announced more than anything in the world.</p>
-        </div>
         <a href="mailto:ian@tayboyinteractive.com?subject=Emoji%20Time%20waitlist" aria-label="Join the Emoji Time waitlist">Join the waitlist</a>
       </article>
     </section>
