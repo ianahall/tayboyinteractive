@@ -99,11 +99,11 @@
   .wrap { position: relative; z-index: 1; max-width: 1360px; margin-inline: auto; padding-inline: var(--gutter); }
 
   /* ---- readout bar ---- */
-  .readout { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 18px; font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
+  .readout { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding-block: 18px; font-family: var(--mono); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); }
   .readout b { color: var(--blue-hot); font-weight: 400; text-shadow: 0 0 8px rgba(143,192,255,.8); }
 
   /* ---- the title: backlit mask, dual gels, slit-scan streak ---- */
-  .hero { display: grid; justify-items: center; text-align: center; min-height: 78vh; align-content: center; padding-block: clamp(48px, 8vw, 120px) clamp(64px, 10vw, 160px); }
+  .hero { display: grid; overflow: clip; justify-items: center; text-align: center; min-height: 78vh; align-content: center; padding-block: clamp(48px, 8vw, 120px) clamp(64px, 10vw, 160px); }
   .mask { position: relative; isolation: isolate; display: grid; justify-items: center; }
   .title { font-family: var(--title); font-weight: 400; text-transform: uppercase; line-height: .92; letter-spacing: .05em; font-size: clamp(56px, 10vw, 168px); position: relative; transform: scaleX(1.12); transform-origin: center; }
   /* the extrusion: the mask has depth, stepping back and down into the void in blue, then dark */
@@ -126,10 +126,10 @@
   .title .ln::after  { color: transparent; -webkit-text-stroke: 1px rgba(138,77,255,.45);   transform: translate(calc(-44px + var(--mx) * -20px), calc(28px + var(--my) * 12px)) skewX(-14deg); opacity: .55; }
   .title .ln .s1 { color: transparent; -webkit-text-stroke: 1px rgba(143,192,255,.22); transform: translate(calc(-66px + var(--mx) * -30px), calc(42px + var(--my) * 18px)) skewX(-14deg); opacity: .35; }
   .title .ln .s2 { color: transparent; -webkit-text-stroke: 1px rgba(138,77,255,.2);   transform: translate(calc(-88px + var(--mx) * -40px), calc(56px + var(--my) * 24px)) skewX(-14deg); opacity: .2; }
-  .boot .title .ln::before { animation: streak1 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
-  .boot .title .ln::after  { animation: streak2 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
-  .boot .title .ln .s1 { animation: streak3 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
-  .boot .title .ln .s2 { animation: streak4 1.6s cubic-bezier(.2,.8,.2,1) .9s both; }
+  .boot .title .ln::before { animation: streak1 1.6s cubic-bezier(.2,.8,.2,1) 0.45s both; }
+  .boot .title .ln::after  { animation: streak2 1.6s cubic-bezier(.2,.8,.2,1) 0.45s both; }
+  .boot .title .ln .s1 { animation: streak3 1.6s cubic-bezier(.2,.8,.2,1) 0.45s both; }
+  .boot .title .ln .s2 { animation: streak4 1.6s cubic-bezier(.2,.8,.2,1) 0.45s both; }
   @keyframes streak1 { from { opacity: 0; transform: translate(-220px, 140px) skewX(-14deg); } }
   @keyframes streak2 { from { opacity: 0; transform: translate(-300px, 190px) skewX(-14deg); } }
   @keyframes streak3 { from { opacity: 0; transform: translate(-380px, 240px) skewX(-14deg); } }
@@ -253,26 +253,26 @@
   .boot .stage .floor { animation: floor 6s linear infinite, floorIn 1.5s cubic-bezier(.2,.8,.2,1) both; }
   @keyframes floorIn { from { opacity: 0; transform: perspective(600px) rotateX(64deg) translateY(70%) scale(.4); } to { opacity: 1; transform: perspective(600px) rotateX(64deg); } }
   .boot .stage .gel { animation: lamp 7s ease-in-out infinite alternate, lightup 1.6s ease-out both; }
-  .boot .anamorphic { animation: flareSweep 1.2s cubic-bezier(.2,.7,.2,1) .5s both; }
+  .boot .anamorphic { animation: flareSweep 1.2s cubic-bezier(.2,.7,.2,1) 0.25s both; }
   @keyframes flareSweep { 0% { opacity: 0; transform: translateX(-45%) scaleX(.3); } 25% { opacity: 1; } 100% { opacity: 0; transform: translateX(45%) scaleX(1.3); } }
-  .boot .title .ln:not(.small) { animation: wipe 1.1s cubic-bezier(.2,.8,.2,1) .9s both; }
-  .boot .title .ln.small { animation: wipe .8s cubic-bezier(.2,.8,.2,1) 1.95s both; }
+  .boot .title .ln:not(.small) { animation: wipe 1.1s cubic-bezier(.2,.8,.2,1) 0.45s both; }
+  .boot .title .ln.small { animation: wipe .8s cubic-bezier(.2,.8,.2,1) 0.975s both; }
   @keyframes wipe { from { clip-path: inset(-200% 100% -200% -60%); } to { clip-path: inset(-200% -60% -200% -60%); } }
-  .boot .title .face { animation: lightup 1.2s ease-out .9s both; }
-  .boot .title .glow { animation: lightup 1.2s ease-out .9s both, pulse 4.5s ease-in-out 2.3s infinite alternate; }
-  .boot .title .ext { animation: lightup 1.2s ease-out .9s both; }
-  .boot .mask::after { animation: flash .8s ease-out 1.85s both; }
+  .boot .title .face { animation: lightup 1.2s ease-out 0.45s both; }
+  .boot .title .glow { animation: lightup 1.2s ease-out 0.45s both, pulse 4.5s ease-in-out 1.15s infinite alternate; }
+  .boot .title .ext { animation: lightup 1.2s ease-out 0.45s both; }
+  .boot .mask::after { animation: flash .8s ease-out 0.925s both; }
   @keyframes flash { 0% { opacity: 0; } 18% { opacity: 1; } 100% { opacity: 0; } }
-  .boot .tagline { animation: lightup 1s ease-out 2.3s both; }
-  .boot .gate { animation: rise .9s cubic-bezier(.2,.8,.2,1) 2.3s both; }
+  .boot .tagline { animation: lightup 1s ease-out 1.15s both; }
+  .boot .gate { animation: rise .9s cubic-bezier(.2,.8,.2,1) 1.15s both; }
   @keyframes rise { from { opacity: 0; transform: translateY(420px); } 30% { opacity: 1; } to { opacity: 1; transform: none; } }
-  .boot .glass { animation: crtOn .8s cubic-bezier(.2,.8,.2,1) 3.2s both; }
+  .boot .glass { animation: crtOn .8s cubic-bezier(.2,.8,.2,1) 1.6s both; }
   @keyframes crtOn { 0% { transform: scaleY(.006) scaleX(.5); filter: brightness(8) saturate(0); } 45% { transform: scaleY(.012) scaleX(1); filter: brightness(5) saturate(0); } 70% { transform: scaleY(1) scaleX(1); filter: brightness(1.8); } 100% { transform: none; filter: none; } }
-  .boot .flare { animation: twinkle 3.2s ease-in-out infinite, lightup .5s ease-out 3.9s both; }
+  .boot .flare { animation: twinkle 3.2s ease-in-out infinite, lightup .5s ease-out 1.95s both; }
   .boot .panel { animation: neonOn 1s steps(1) both; }
-  .boot .panel.cheddar { animation-delay: 3.8s; } .boot .panel.dailies { animation-delay: 3.95s; } .boot .panel.postcards { animation-delay: 4.1s; } .boot .panel.emoji { animation-delay: 4.25s; }
+  .boot .panel.cheddar { animation-delay: 1.9s; } .boot .panel.dailies { animation-delay: 1.975s; } .boot .panel.postcards { animation-delay: 2.05s; } .boot .panel.emoji { animation-delay: 2.125s; }
   @keyframes neonOn { 0% { opacity: 0; } 8% { opacity: .9; } 16% { opacity: .08; } 30% { opacity: 1; } 38% { opacity: .25; } 52% { opacity: 1; } 60% { opacity: .55; } 100% { opacity: 1; } }
-  .boot footer { animation: lightup 1s ease-out 4.6s both; }
+  .boot footer { animation: lightup 1s ease-out 2.3s both; }
   .panel .icon.placeholder { display: grid; place-items: center; background: #0b0c16; color: var(--gel-hot); font-family: var(--title); font-size: 24px; text-shadow: 0 0 10px var(--gel-hot); }
   .panel .soon { display: block; margin-top: 18px; margin-bottom: -8px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--gel-hot); text-shadow: 0 0 8px var(--gel-hot), 0 0 22px var(--gel); animation: pulse 2.6s ease-in-out infinite alternate; }
   /* the gel edge: a bright refracted rim that brightens on hover */
@@ -291,11 +291,17 @@
   .panel h2 { font-family: var(--title); font-weight: 400; text-transform: uppercase; letter-spacing: .08em; font-size: clamp(22px, 2.4vw, 32px); color: #fff; text-shadow: 0 0 6px #fff, 0 0 22px var(--gel-hot), 0 0 50px var(--gel); }
   .panel p { color: #d8dcf0; max-width: 34ch; text-shadow: 0 0 10px rgba(216,220,240,.35); }
   .panel a { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: var(--gel-hot); border: 1px solid color-mix(in srgb, var(--gel-hot) 60%, transparent); padding: 10px 14px; border-radius: 6px; box-shadow: 0 0 12px color-mix(in srgb, var(--gel) 50%, transparent), inset 0 0 12px color-mix(in srgb, var(--gel) 25%, transparent); text-shadow: 0 0 8px var(--gel-hot); transition: box-shadow .25s, background .25s; min-height: 44px; }
+  /* the day flip and the section heading, in the same readout voice as the panel links */
+  .hero .flip { --gel: var(--blue); --gel-hot: var(--blue-hot); display: inline-block; position: relative; z-index: 2; margin-top: 18px; font-family: var(--mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; text-decoration: none; color: var(--gel-hot); border: 1px solid color-mix(in srgb, var(--gel-hot) 60%, transparent); padding: 10px 14px; border-radius: 6px; box-shadow: 0 0 12px color-mix(in srgb, var(--gel) 50%, transparent), inset 0 0 12px color-mix(in srgb, var(--gel) 25%, transparent); text-shadow: 0 0 8px var(--gel-hot); transition: box-shadow .25s, background .25s; min-height: 44px;  margin-top: 28px; }
+  .hero .flip:hover, .panel a:focus-visible { background: color-mix(in srgb, var(--gel) 25%, transparent); box-shadow: 0 0 24px var(--gel), inset 0 0 18px color-mix(in srgb, var(--gel) 45%, transparent); outline: none; }
+  .hero .flip:focus-visible { outline: 2px solid var(--gel-hot); outline-offset: 3px; }
+  .section-title { font-family: var(--mono); font-weight: 400; font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); text-align: center; margin: 0 0 28px; }
+  footer a { color: inherit; text-decoration: underline; text-underline-offset: .25em; }
   .panel a:hover, .panel a:focus-visible { background: color-mix(in srgb, var(--gel) 25%, transparent); box-shadow: 0 0 24px var(--gel), inset 0 0 18px color-mix(in srgb, var(--gel) 45%, transparent); outline: none; }
   .panel a:focus-visible { outline: 2px solid var(--gel-hot); outline-offset: 3px; }
 
   footer b { color: var(--blue-hot); font-weight: 400; text-shadow: 0 0 8px rgba(143,192,255,.8), 0 0 22px rgba(42,108,255,.6); }
-  footer { padding-block: 22px 56px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); border-top: 1px solid rgba(143,192,255,.18); }
+  footer { padding-block: 22px 56px; display: flex; justify-content: center; gap: 16px; flex-wrap: wrap; font-family: var(--mono); font-size: 13px; letter-spacing: .22em; text-transform: uppercase; color: var(--dim); border-top: 1px solid rgba(143,192,255,.18); }
 
   @media (max-width: 860px) {
     .hero { min-height: 0; }
@@ -330,7 +336,8 @@
         <span class="ln" data-t="TAYBOY"><span class="s1" aria-hidden="true">TAYBOY</span><span class="s2" aria-hidden="true">TAYBOY</span><span class="ext" aria-hidden="true">TAYBOY</span><span class="glow" aria-hidden="true">TAYBOY</span><span class="face">TAYBOY</span><span class="gel" aria-hidden="true">TAYBOY</span></span>
         <span class="ln small"><span class="ext" aria-hidden="true">INTERACTIVE</span><span class="glow" aria-hidden="true">INTERACTIVE</span><span class="face">INTERACTIVE</span></span>
       </h1>
-      <p class="tagline">An independent product studio building thoughtful software and petting the best dogs in Durham, North Carolina.</p>
+      <p class="tagline">Petting the best dogs in Durham, NC. Thoughtful software in between.</p>
+      <a class="flip" href="/">See it by day</a>
     </div>
   </header>
 
@@ -348,34 +355,33 @@
   </section>
 
   <main>
+    <h2 class="section-title">What we make</h2>
     <section class="panels" aria-label="Apps">
       <article class="panel cheddar" id="cheddar">
         <div class="head"><img class="icon" src="/assets/cheddar-icon.png" alt="" width="256" height="256"><h2>Cheddar</h2></div>
-        <p>A cool camera built for your creative kid.</p>
+        <p>A cool camera built for your creative kid. One giant shutter, chunky buttons and nothing to read. Free, with no ads, no accounts and no internet.</p>
         <a href="https://play.google.com/store/apps/details?id=com.cheddarcam.android">Get it on Google Play</a>
       </article>
       <article class="panel dailies" id="dailies">
         <div class="head"><img class="icon" src="/assets/dailies-icon.png" alt="" width="256" height="256"><h2>Dailies</h2></div>
-        <p>Film your day. Turns an epic day into a video diary, automatically.</p>
-        <a href="https://dailies.cam">dailies.cam</a>
+        <p>Film your day, five seconds at a time. When the day is done, Dailies cuts the moments into one short film and saves it to your Photos.</p>
+        <a href="https://dailies.cam">Visit dailies.cam</a>
       </article>
       <article class="panel postcards" id="postcards">
-        <div class="head"><span class="icon placeholder" aria-hidden="true">P</span><h2>Postcards</h2></div>
-        <p>A simple app designed to send digital stories to folks you love.</p>
-        <span class="soon">Coming soon</span>
+        <div class="head"><h2>Postcards</h2></div>
+        <p>An audio postcard. Pick one photo, talk over it for twenty seconds, and send it to one person you love. It lands in Messages, where they already are. Coming to iPhone.</p>
         <a href="mailto:ian@tayboyinteractive.com?subject=Postcards%20waitlist" aria-label="Join the Postcards waitlist">Join the waitlist</a>
       </article>
       <article class="panel emoji" id="emoji-time">
-        <div class="head"><span class="icon placeholder" aria-hidden="true">E</span><h2>Emoji Time</h2></div>
-        <p>Cute and quirky games for kids to play with emojis.</p>
-        <span class="soon">Coming soon</span>
+        <div class="head"><h2>Emoji Time</h2></div>
+        <p>Pick three emojis and hear a short, silly story about them, read out loud, for a grown-up and a kid to listen to together. Coming soon.</p>
         <a href="mailto:ian@tayboyinteractive.com?subject=Emoji%20Time%20waitlist" aria-label="Join the Emoji Time waitlist">Join the waitlist</a>
       </article>
     </section>
   </main>
 
   <footer>
-    <span><b>Tay Boy Interactive</b> · Durham, North Carolina</span>
+    <span><b>Tay Boy Interactive</b> · Durham, North Carolina · <a href="mailto:ian@tayboyinteractive.com">ian@tayboyinteractive.com</a></span>
   </footer>
 </div>
 
