@@ -70,23 +70,17 @@
   .one .lede p { font-size: clamp(20px, 1.8vw, 34px); line-height: 1.3; text-wrap: pretty; }
   .photo { position: absolute; inset: 0; display: block; }
   .photo[hidden] { display: none; }
-  .photo:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }
   .clip { position: absolute; top: -8px; left: -8px; width: calc(100% + 16px); height: calc(100% + 16px); display: block; object-fit: cover; object-position: 50% 38%; }
-  /* Tay plays his video, an easter egg: a faint ringed play mark hints at it and firms up when he's pointed at;
-     the film runs inside his piece, cut on the same line, and Tay comes back when it ends */
-  .play { position: absolute; right: clamp(14px, 1.6vw, 24px); bottom: clamp(14px, 1.6vw, 24px); width: clamp(38px, 3.2vw, 48px); aspect-ratio: 1; border-radius: 50%;
-          display: grid; place-items: center; color: var(--night); border: 1.5px solid currentColor; background: color-mix(in srgb, var(--paper) 35%, transparent);
-          opacity: .55; transition: opacity .2s, scale .2s cubic-bezier(.2, .8, .2, 1); }
-  .play svg { width: 38%; height: 38%; translate: 6% 0; }
-  .photo:hover .play, .photo:focus-visible .play { opacity: 1; scale: 1.06; }
-  .film { background: var(--night); container-type: size; }
-  /* the player keeps its own 16:9 shape, centred, so the bars round it are night ink rather than YouTube's black */
-  .film iframe { position: absolute; inset: 0; margin: auto; width: min(100cqw - 16px, (100cqh - 16px) * 16 / 9); height: auto; aspect-ratio: 16 / 9; border: 0; display: block; }
-  .shut { position: absolute; top: 20px; right: 20px; z-index: 2; width: 44px; height: 44px; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
-          display: grid; place-items: center; background: var(--paper); color: var(--night); }
-  .shut svg { width: 18px; height: 18px; }
-  .shut:focus-visible { outline: 3px solid var(--paper); outline-offset: 3px; }
-  @media (prefers-reduced-motion: reduce) { .play { transition: none; } }
+  /* the easter egg: nothing marks it; his nose is the button (the script keeps it over his nose however he's cropped) */
+  .nose { position: absolute; border: 0; padding: 0; border-radius: 50%; background: none; cursor: pointer; }
+  .nose:focus-visible { outline: 3px solid var(--paper); outline-offset: 2px; }
+  /* his video fills his piece, cut on the same line, then a card for him, then his picture again */
+  .film { background: #000; outline: none; cursor: pointer; }
+  .film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .love { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; background: #000; color: #fff;
+          font-style: italic; font-size: clamp(28px, 3.2vw, 52px); animation: love .6s ease both; }
+  @keyframes love { from { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .love { animation: none; } }
 
   /* 2/3: the work */
   .print.two { grid-template-columns: repeat(12, minmax(0, 1fr)); grid-template-rows: minmax(0, 1fr) minmax(0, 1fr); }
@@ -157,9 +151,10 @@
       <div class="blk boy" data-ink="#2b4649"><svg class="word" viewBox="0 0 329.4 134.0" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><mask id="cut2" maskUnits="userSpaceOnUse" x="0" y="0" width="329.4" height="134.0"><path d="M26.9 2.6L58 2.7L61.4 3L64.8 3.8L68 5.2L71 7.2L73.6 9.5L75.9 12.3L77.7 15.5L79 18.9L79.8 22.4L80.1 26.1L80 58.2L79.7 61.8L78.9 65.4L77.6 68.8L75.7 71.9L73.5 74.7L70.8 77.1L67.9 79L64.7 80.4L61.3 81.2L57.8 81.5L26.8 81.5Z" fill="#fff"/><path d="M26.8 39.6L57.9 39.6L58.9 39.7L59.9 39.9L60.8 40.2L61.7 40.6L62.5 41.1L63.2 41.7L63.7 42.3L64.1 43L64.3 43.8L64.4 44.6L64.4 48.9L64.3 49.7L64.1 50.4L63.7 51.1L63.1 51.8L62.5 52.4L61.7 52.9L60.8 53.3L59.9 53.6L58.9 53.8L57.9 53.8L26.8 53.8Z" fill="#000"/><path d="M26.8 53.8L75.7 53.8L79.6 54.2L83.4 55.1L87 56.7L90.4 58.8L93.3 61.5L95.9 64.6L97.9 68.1L99.4 71.9L100.3 75.8L100.6 79.9L100.5 106.7L100.2 110.8L99.3 114.8L97.8 118.5L95.8 122L93.2 125.1L90.2 127.8L86.9 129.9L83.3 131.4L79.5 132.4L75.6 132.7L26.7 132.6Z" fill="#fff"/><path d="M26.8 81.5L75.7 81.5L77 81.6L78.3 81.9L79.5 82.3L80.7 82.9L81.7 83.6L82.6 84.5L83.2 85.4L83.8 86.5L84.1 87.5L84.2 88.7L84.2 88.7L84.1 89.8L83.8 90.9L83.2 91.9L82.5 92.8L81.7 93.7L80.7 94.4L79.5 95L78.3 95.4L77 95.7L75.6 95.7L26.7 95.7Z" fill="#000"/><path d="M8.4 2.6L45.4 2.6L45.3 39.6L8.4 39.5ZM8.3 95.6L48.9 95.7L48.8 132.6L8.2 132.6ZM21.7 2.6L32.1 2.6L31.9 132.6L21.5 132.6ZM107.6 46.4L108.1 39.4L109.6 32.7L112.2 26.3L115.7 20.3L120 15.1L125.1 10.5L130.9 6.9L137.1 4.2L143.6 2.6L150.3 2L166.7 2L173.4 2.5L179.9 4.1L186.2 6.7L191.9 10.3L197.1 14.8L201.4 20.1L205 26L207.6 32.4L209.2 39.1L209.7 46L209.9 87.6L209.3 94.5L207.8 101.3L205.2 107.7L201.7 113.6L197.4 118.9L192.3 123.4L186.5 127.1L180.3 129.8L173.8 131.4L167.1 132L150.7 132L144 131.5L137.5 129.9L131.2 127.3L125.5 123.7L120.4 119.2L116 113.9L112.4 108L109.8 101.6L108.2 94.9L107.7 88Z" fill="#fff"/><path d="M123.9 66L124.2 61.6L125.2 57.3L126.8 53.2L129 49.4L131.7 46.1L134.8 43.2L138.4 40.9L142.2 39.2L146.3 38.1L150.4 37.8L166.8 37.7L170.9 38L175 39.1L178.9 40.7L182.4 43L185.6 45.9L188.3 49.2L190.5 53L192.1 57.1L193.1 61.3L193.5 65.7L193.5 68L193.2 72.4L192.2 76.7L190.6 80.8L188.5 84.6L185.8 87.9L182.6 90.8L179 93.1L175.2 94.8L171.1 95.9L167 96.2L150.6 96.3L146.5 95.9L142.4 94.9L138.5 93.3L135 91L131.8 88.1L129.1 84.8L126.9 81L125.3 76.9L124.3 72.6L123.9 68.2Z" fill="#000"/><path d="M216.7 1.6L258.4 1.5L258.4 37.9L216.7 38ZM279.2 1.5L320.9 1.4L321 37.8L279.3 37.9ZM232.1 35.9L243 35.9L274.4 76.9L263.5 76.9ZM294.7 35.8L305.6 35.8L274.4 76.9L263.5 76.9ZM263.5 74.9L274.4 74.9L274.5 131.5L263.6 131.5ZM242.9 95.1L295 95L295.1 131.4L243 131.5Z" fill="#fff"/></mask><rect width="329.4" height="134.0" fill="#ebe5d6" mask="url(#cut2)"/></svg></div>
       <div class="blk inter" data-ink="#dc9b52"><svg class="word" viewBox="0 0 1164.1 134.0" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><mask id="cut3" maskUnits="userSpaceOnUse" x="0" y="0" width="1164.1" height="134.0"><path d="M2.3 1.5L60 1.8L59.8 36.1L2.1 35.8ZM1.9 97.2L59.5 97.5L59.4 131.8L1.7 131.5ZM25.6 1.6L36.7 1.7L36.1 131.7L25 131.6ZM74.9 1.5L118 1.6L117.9 37.7L74.8 37.5ZM141.7 1.7L182.7 1.8L182.6 37.9L141.6 37.8ZM74.6 95.4L117.7 95.6L117.6 131.6L74.4 131.5ZM91.5 1.5L101.4 1.6L100.9 131.6L91.1 131.5ZM156.2 1.8L166.1 1.8L165.6 131.8L155.8 131.8ZM91.5 1.5L123.4 1.6L165.6 131.8L133.8 131.7ZM197.4 2L293.2 1.9L293.2 38.1L197.5 38.2ZM240.1 2L250.6 2L250.7 132L240.2 132ZM221.5 95.9L269.4 95.8L269.4 132L221.5 132ZM308.6 1.4L397.4 1.8L397.2 39.4L308.4 38.9ZM308.2 93.9L397 94.3L396.8 131.8L308 131.4ZM324.5 1.5L335.3 1.5L334.7 131.5L323.9 131.5ZM324.3 52.2L375.8 52.4L375.6 81L324.1 80.8ZM383.2 39.3L397.2 39.4L397.2 53.7L383.2 53.6ZM383 79.9L397 80L397 94.3L383 94.2ZM432.6 2.4L476.3 2.5L480.3 2.8L484.2 3.7L487.9 5.2L491.3 7.2L494.3 9.8L496.9 12.7L499 16L500.5 19.6L501.4 23.4L501.7 27.2L501.7 50.6L501.4 54.5L500.4 58.3L498.9 61.8L496.8 65.1L494.2 68.1L491.2 70.6L487.7 72.6L484.1 74.1L480.2 75L476.2 75.3L432.4 75.2Z" fill="#fff"/><path d="M432.5 37.8L476.3 37.9L478.1 38L479.8 38.1L481.5 38.4L483 38.8L484.3 39.2L485.5 39.8L486.4 40.4L487.1 41.1L487.5 41.8L487.7 42.5L487.7 42.5L487.5 43.2L487.1 43.9L486.4 44.5L485.5 45.1L484.3 45.7L483 46.1L481.4 46.5L479.8 46.8L478 46.9L476.3 47L432.5 46.9Z" fill="#000"/><path d="M412.2 2.4L452.9 2.4L452.9 37.9L412.2 37.8ZM412 96.9L456.8 97L456.7 132.4L412 132.4ZM427.9 2.4L437.3 2.4L437 132.4L427.6 132.4ZM465 58.3L477.2 58.3L500 98.1L487.8 98.1ZM475.1 97.1L513.8 97.1L513.7 132.6L475.1 132.5ZM561.9 2.2L605.4 2.4L605.3 24.6L561.8 24.4ZM568.3 22.4L578.7 22.5L552.2 95.4L541.8 95.4ZM588.4 22.6L598.8 22.6L624.6 95.8L614.1 95.8ZM553.7 62.7L613 63L622.6 90.2L543.8 89.8ZM528.7 95.3L574.5 95.6L574.3 132.3L528.5 132ZM591.9 95.6L637.6 95.9L637.4 132.6L591.7 132.4ZM652.8 46.3L653.4 39.4L655 32.7L657.6 26.3L661.1 20.4L665.5 15.1L670.6 10.6L676.4 7L682.6 4.4L689.2 2.8L695.9 2.2L707.6 2.3L714.3 2.9L720.8 4.5L727 7.2L732.8 10.8L737.9 15.3L742.2 20.6L745.7 26.5L748.3 33L749.8 39.7L750.3 46.6L750.2 88.2L749.6 95.1L748 101.9L745.5 108.3L741.9 114.2L737.5 119.4L732.4 123.9L726.6 127.5L720.4 130.2L713.9 131.8L707.2 132.3L695.5 132.2L688.8 131.7L682.2 130L676 127.4L670.3 123.7L665.2 119.2L660.8 113.9L657.3 108L654.8 101.6L653.2 94.8L652.7 87.9Z" fill="#fff"/><path d="M669.2 67.1L669.5 62.9L670.5 58.7L672.1 54.8L674.3 51.2L677 47.9L680.2 45.2L683.7 43L687.6 41.3L691.6 40.4L695.8 40L707.5 40.1L711.6 40.4L715.6 41.4L719.5 43.1L723 45.3L726.2 48.1L728.8 51.4L731 55L732.6 58.9L733.5 63.1L733.8 67.4L733.8 67.4L733.5 71.6L732.5 75.8L730.9 79.7L728.7 83.4L726 86.6L722.9 89.4L719.3 91.6L715.5 93.2L711.4 94.2L707.3 94.5L695.6 94.5L691.4 94.1L687.4 93.1L683.6 91.5L680 89.2L676.9 86.4L674.2 83.2L672 79.5L670.5 75.6L669.5 71.4L669.2 67.2ZM706.5 40.1L755.2 40.2L755 94.7L706.3 94.5Z" fill="#000"/><path d="M736.4 13.7L750.4 13.8L750.3 55.8L736.3 55.8ZM736.2 79L750.2 79L750.1 121.1L736.1 121ZM765.5 1.8L864.4 2.2L864.2 36.9L765.4 36.4ZM809.5 2L820.4 2L819.8 132L809 132ZM789.8 97.2L839.3 97.4L839.1 132.1L789.7 131.9ZM879.4 2.4L936.6 2.7L936.4 37.9L879.3 37.6ZM879 97.2L936.1 97.5L935.9 132.7L878.8 132.4ZM902.9 2.5L913.1 2.6L912.4 132.6L902.2 132.5ZM950.9 2.9L992.8 2.7L993 39.8L951.1 40ZM1013.7 2.6L1055.6 2.4L1055.8 39.5L1013.9 39.7ZM967 37.9L979.1 37.8L1008.9 132.6L996.8 132.7ZM1029.8 37.6L1041.9 37.5L1008.9 132.6L996.8 132.7ZM1070.6 2.1L1161.8 1.7L1161.9 38.2L1070.8 38.6ZM1071 95.6L1162.2 95.2L1162.4 131.7L1071.2 132.1ZM1087.7 2L1097.2 2L1097.8 132L1088.3 132ZM1088 53.6L1140.8 53.4L1141 80.2L1088.1 80.5ZM1147.9 38.3L1161.9 38.2L1162 52.5L1148 52.6ZM1148.1 81L1162.1 80.9L1162.2 95.2L1148.2 95.3Z" fill="#fff"/></mask><rect width="1164.1" height="134.0" fill="#2b4649" mask="url(#cut3)"/></svg></div>
       <div class="blk dog" data-ink="#e2d9c4">
-        <a class="photo" href="https://youtu.be/k9WDbd9Tekk" data-video="k9WDbd9Tekk" aria-label="Tay, a black and white dog in a bandana. Play a video of him">
-          <img class="clip" src="assets/tay-tint.jpg" alt="" width="1116" height="1116">
-          <span class="play" aria-hidden="true"><svg viewBox="0 0 20 20"><path d="M6 3.5 17 10 6 16.5Z" fill="currentColor"/></svg></span></a>
+        <div class="photo">
+          <img class="clip" src="assets/tay-tint.jpg" alt="Tay, a black and white dog in a bandana" width="1116" height="1116">
+          <button class="nose" type="button" data-film="assets/tay.mp4" data-nose="0.595 0.565 0.2 0.15" aria-label="Boop Tay's nose"></button>
+        </div>
       </div>
       <div class="blk lede" data-ink="#7ea97b"><p>An independent product studio building thoughtful software and petting the best dogs in Durham, North Carolina.</p></div>
     </div>
@@ -284,39 +279,52 @@
   else { window.addEventListener("resize", cutAll); }
   cutAll(); size();
 
-  /* Tay plays his video in his own piece; the player only loads when asked, from YouTube's no-cookie host */
-  Array.prototype.forEach.call(document.querySelectorAll(".photo[data-video]"), function (link) {
-    var blk = link.parentNode, print = blk.closest(".print");
-    function close(ended) {
+  /* the easter egg: boop Tay's nose and his video plays in his piece, muted, then "Love you, Tay", then his picture.
+     The video only loads when his nose is booped. Clicking the video or pressing Escape skips to the card. */
+  Array.prototype.forEach.call(document.querySelectorAll(".nose"), function (nose) {
+    var photo = nose.parentNode, img = photo.querySelector("img"), blk = photo.parentNode, print = blk.closest(".print");
+    var spot = nose.getAttribute("data-nose").split(" ").map(Number), timer;
+    /* keep the button over his nose, wherever the cover crop puts it */
+    function place() {
+      var cw = img.clientWidth, ch = img.clientHeight, nw = img.naturalWidth || 1116, nh = img.naturalHeight || 1116;
+      if (!cw) return;
+      var s = Math.max(cw / nw, ch / nh), rw = nw * s, rh = nh * s, ox = (cw - rw) * 0.5 + img.offsetLeft, oy = (ch - rh) * 0.38 + img.offsetTop;
+      var w = Math.max(44, spot[2] * rw), h = Math.max(44, spot[3] * rh);
+      nose.style.left = (ox + spot[0] * rw - w / 2) + "px"; nose.style.top = (oy + spot[1] * rh - h / 2) + "px";
+      nose.style.width = w + "px"; nose.style.height = h + "px";
+    }
+    function done() {
       var film = blk.querySelector(".film"); if (!film) return;
       var back = film.contains(document.activeElement);
-      film.remove(); link.hidden = false;
+      clearTimeout(timer); film.remove(); photo.hidden = false;
       cut(print, prints.indexOf(print));   /* Tay was measured while hidden, so cut him again */
-      if (back) link.focus(ended === true ? { focusVisible: false } : undefined);
-      document.removeEventListener("keydown", onKey); window.removeEventListener("message", onEnd);
+      place();
+      if (back) nose.focus({ focusVisible: false });
+      document.removeEventListener("keydown", onKey);
     }
-    function onKey(e) { if (e.key === "Escape") close(); }
-    /* when the video finishes, Tay's picture comes back (the player reports its state once asked to) */
-    function onEnd(e) {
-      if (!/youtube/.test(e.origin)) return;
-      var m; try { m = JSON.parse(e.data); } catch (_) { return; }
-      var state = m.event === "onStateChange" ? m.info : m.info && m.info.playerState;
-      if (state === 0) close(true);
+    function love() {
+      var film = blk.querySelector(".film"); if (!film || film.querySelector(".love")) return;
+      film.innerHTML = '<p class="love" role="status">Love you, Tay</p>';
+      timer = setTimeout(done, 2800);
     }
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
+    function onKey(e) { if (e.key === "Escape") love(); }
+    nose.addEventListener("click", function () {
       var film = document.createElement("div");
-      film.className = "film clip";
-      film.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + link.getAttribute("data-video") + '?autoplay=1&playsinline=1&rel=0&enablejsapi=1" title="Tay, on video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
-        + '<button class="shut" type="button" aria-label="Close the video"><svg viewBox="0 0 20 20"><path d="M4 4 16 16M16 4 4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>';
-      blk.appendChild(film); link.hidden = true;
-      film.querySelector(".shut").addEventListener("click", function () { close(); });
-      document.addEventListener("keydown", onKey); window.addEventListener("message", onEnd);
-      var frame = film.querySelector("iframe");
-      frame.addEventListener("load", function () { frame.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*"); });
+      film.className = "film clip"; film.tabIndex = -1;
+      film.innerHTML = '<video src="' + nose.getAttribute("data-film") + '" muted autoplay playsinline aria-label="Tay, on video"></video>';
+      var video = film.querySelector("video");
+      video.muted = true;   /* as a property too, so browsers allow it to play */
+      video.addEventListener("ended", love); video.addEventListener("error", love);
+      film.addEventListener("click", love);
+      blk.appendChild(film); photo.hidden = true;
+      document.addEventListener("keydown", onKey);
       cut(print, prints.indexOf(print));
-      film.querySelector(".shut").focus();
+      film.focus({ preventScroll: true });
+      var go = video.play(); if (go && go.catch) go.catch(function () {});
     });
+    if (img.complete) place(); else img.addEventListener("load", place);
+    window.addEventListener("resize", place);
+    if (window.ResizeObserver) new ResizeObserver(place).observe(photo);
   });
 
   /* each sheet's pieces land once it is well onto the screen, not while its edge is still sliding in; the first
