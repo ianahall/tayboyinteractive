@@ -72,11 +72,13 @@
   .photo[hidden] { display: none; }
   .photo:focus-visible { outline: 3px solid var(--text); outline-offset: 4px; }
   .clip { position: absolute; top: -8px; left: -8px; width: calc(100% + 16px); height: calc(100% + 16px); display: block; object-fit: cover; object-position: 50% 38%; }
-  /* Tay plays his video: a small play mark says so, and the film runs inside his piece, cut on the same line */
-  .play { position: absolute; right: clamp(14px, 1.6vw, 24px); bottom: clamp(14px, 1.6vw, 24px); width: clamp(48px, 4.4vw, 64px); aspect-ratio: 1; border-radius: 50%;
-          display: grid; place-items: center; background: var(--night); color: var(--paper); transition: scale .2s cubic-bezier(.2, .8, .2, 1); }
-  .play svg { width: 42%; height: 42%; translate: 6% 0; }
-  .photo:hover .play { scale: 1.08; }
+  /* Tay plays his video, an easter egg: a faint ringed play mark hints at it and firms up when he's pointed at;
+     the film runs inside his piece, cut on the same line, and Tay comes back when it ends */
+  .play { position: absolute; right: clamp(14px, 1.6vw, 24px); bottom: clamp(14px, 1.6vw, 24px); width: clamp(38px, 3.2vw, 48px); aspect-ratio: 1; border-radius: 50%;
+          display: grid; place-items: center; color: var(--night); border: 1.5px solid currentColor; background: color-mix(in srgb, var(--paper) 35%, transparent);
+          opacity: .55; transition: opacity .2s, scale .2s cubic-bezier(.2, .8, .2, 1); }
+  .play svg { width: 38%; height: 38%; translate: 6% 0; }
+  .photo:hover .play, .photo:focus-visible .play { opacity: 1; scale: 1.06; }
   .film { background: var(--night); container-type: size; }
   /* the player keeps its own 16:9 shape, centred, so the bars round it are night ink rather than YouTube's black */
   .film iframe { position: absolute; inset: 0; margin: auto; width: min(100cqw - 16px, (100cqh - 16px) * 16 / 9); height: auto; aspect-ratio: 16 / 9; border: 0; display: block; }
@@ -111,10 +113,13 @@
   .reach .mail:focus-visible { outline: 3px solid var(--text); outline-offset: 6px; }
   .reach p { font-size: clamp(19px, 1.6vw, 23px); }
 
-  /* the pieces land one colour after another, the way a sheet goes through the press once per block */
-  .print.pulling .ink path { animation: pull .7s cubic-bezier(.2, .8, .25, 1) both; animation-delay: var(--d, 0ms); transform-box: fill-box; transform-origin: center; }
-  @keyframes pull { from { opacity: 0; transform: translate(0, -6px) scale(1.012); } 60% { opacity: 1; } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) { .print.pulling .ink path { animation: none !important; } .proof::after { display: none; } .btn { transition: none; } }
+  /* the pieces land one after another, the way a sheet goes through the press once per block. A piece's ink
+     and everything printed on it (letters, Tay, words, buttons) land together, so nothing shows before its colour;
+     until a sheet is pulled its pieces wait unseen (only when the script will pull them) */
+  .pull .print:not(.pulling) .ink path, .pull .print:not(.pulling) .blk { opacity: 0; }
+  .print.pulling .ink path, .print.pulling .blk { animation: pull .5s cubic-bezier(.2, .8, .25, 1) both; animation-delay: var(--d, 0ms); }
+  @keyframes pull { from { opacity: 0; transform: translate(0, -6px); } 55% { opacity: 1; } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) { .print.pulling .ink path, .print.pulling .blk { animation: none !important; } .proof::after { display: none; } .btn { transition: none; } }
 
   /* phones, and tablets held upright: the name and SAY HELLO stack, so their letters fill the pieces' width */
   @media (max-width: 760px), (orientation: portrait) and (max-width: 1100px) {
@@ -140,6 +145,8 @@
 </style>
 </head>
 <body>
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window) document.documentElement.classList.add("pull");</script>
+
 <span class="mark" id="top"></span>
 <header class="proof first">
   <h1 class="sr-only">Tay Boy Interactive</h1>
@@ -222,24 +229,32 @@
   function d(pts, ox, oy) { return "M" + pts.map(function (p) { return (p[0] - ox).toFixed(1) + " " + (p[1] - oy).toFixed(1); }).join("L") + "Z"; }
 
   var prints = Array.prototype.slice.call(document.querySelectorAll(".print"));
+  /* where an element sits in its print, by layout alone: a piece mid-landing (translated) still measures where it rests */
+  function at(el, root) { var x = 0, y = 0; while (el && el !== root) { x += el.offsetLeft; y += el.offsetTop; el = el.offsetParent; } return [x, y]; }
   function cut(print, n) {
-    var box = print.getBoundingClientRect(), ink = print.querySelector(".ink");
+    var ink = print.querySelector(".ink"), W = print.clientWidth, H = print.clientHeight;
     var blks = Array.prototype.slice.call(print.querySelectorAll(".blk"));
-    if (!box.width || !box.height) return;
-    var gap = parseFloat(getComputedStyle(print).columnGap) || 10, W = box.width, H = box.height;
+    if (!W || !H) return;
+    var gap = parseFloat(getComputedStyle(print).columnGap) || 10;
     /* close the grid's gaps so the cells tile the print, then let the saw put the paper back */
     var cells = blks.map(function (b) {
-      var r = b.getBoundingClientRect(), x0 = r.left - box.left, y0 = r.top - box.top, x1 = r.right - box.left, y1 = r.bottom - box.top;
+      var p = at(b, print), x0 = p[0], y0 = p[1], x1 = x0 + b.offsetWidth, y1 = y0 + b.offsetHeight;
       return [x0 < 1 ? 0 : x0 - gap / 2, y0 < 1 ? 0 : y0 - gap / 2, x1 > W - 1 ? W : x1 + gap / 2, y1 > H - 1 ? H : y1 + gap / 2];
     });
     var polys = saw(cells, gap, 11 + n * 17, Math.min(5, W / 300));
+    /* the pieces land top-left first, sweeping down and across like the roller, so no half of the sheet waits empty */
+    var lag = cells.map(function (c) { return Math.round((c[1] / H + 0.6 * c[0] / W) * 380) + "ms"; });
     ink.setAttribute("viewBox", "0 0 " + W + " " + H);
-    ink.innerHTML = polys.map(function (p, i) { return '<path style="--d:' + (i * 140) + 'ms" d="' + d(p, 0, 0) + '" fill="' + blks[i].getAttribute("data-ink") + '"/>'; }).join("");
-    /* a picture in a piece is cut along the same line */
+    /* a re-cut (fonts arriving, a resize) reshapes the pieces in place, so a landing in progress carries on */
+    var paths = ink.querySelectorAll("path");
+    if (paths.length === polys.length) polys.forEach(function (p, i) { paths[i].setAttribute("d", d(p, 0, 0)); });
+    else ink.innerHTML = polys.map(function (p, i) { return '<path style="--d:' + lag[i] + '" d="' + d(p, 0, 0) + '" fill="' + blks[i].getAttribute("data-ink") + '"/>'; }).join("");
     blks.forEach(function (b, i) {
+      b.style.setProperty("--d", lag[i]);
+      /* a picture in a piece is cut along the same line */
       Array.prototype.forEach.call(b.querySelectorAll(".clip"), function (img) {
-        var r = img.getBoundingClientRect();
-        img.style.clipPath = 'path("' + d(polys[i], r.left - box.left, r.top - box.top) + '")';
+        var p = at(img, print);
+        img.style.clipPath = 'path("' + d(polys[i], p[0], p[1]) + '")';
       });
     });
     print.classList.add("cut");
@@ -272,30 +287,53 @@
   /* Tay plays his video in his own piece; the player only loads when asked, from YouTube's no-cookie host */
   Array.prototype.forEach.call(document.querySelectorAll(".photo[data-video]"), function (link) {
     var blk = link.parentNode, print = blk.closest(".print");
-    function close() {
+    function close(ended) {
       var film = blk.querySelector(".film"); if (!film) return;
-      film.remove(); link.hidden = false; link.focus();
-      document.removeEventListener("keydown", onKey);
+      var back = film.contains(document.activeElement);
+      film.remove(); link.hidden = false;
+      cut(print, prints.indexOf(print));   /* Tay was measured while hidden, so cut him again */
+      if (back) link.focus(ended === true ? { focusVisible: false } : undefined);
+      document.removeEventListener("keydown", onKey); window.removeEventListener("message", onEnd);
     }
     function onKey(e) { if (e.key === "Escape") close(); }
+    /* when the video finishes, Tay's picture comes back (the player reports its state once asked to) */
+    function onEnd(e) {
+      if (!/youtube/.test(e.origin)) return;
+      var m; try { m = JSON.parse(e.data); } catch (_) { return; }
+      var state = m.event === "onStateChange" ? m.info : m.info && m.info.playerState;
+      if (state === 0) close(true);
+    }
     link.addEventListener("click", function (e) {
       e.preventDefault();
       var film = document.createElement("div");
       film.className = "film clip";
-      film.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + link.getAttribute("data-video") + '?autoplay=1&playsinline=1&rel=0" title="Tay, on video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
+      film.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/' + link.getAttribute("data-video") + '?autoplay=1&playsinline=1&rel=0&enablejsapi=1" title="Tay, on video" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>'
         + '<button class="shut" type="button" aria-label="Close the video"><svg viewBox="0 0 20 20"><path d="M4 4 16 16M16 4 4 16" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg></button>';
       blk.appendChild(film); link.hidden = true;
-      film.querySelector(".shut").addEventListener("click", close);
-      document.addEventListener("keydown", onKey);
+      film.querySelector(".shut").addEventListener("click", function () { close(); });
+      document.addEventListener("keydown", onKey); window.addEventListener("message", onEnd);
+      var frame = film.querySelector("iframe");
+      frame.addEventListener("load", function () { frame.contentWindow.postMessage(JSON.stringify({ event: "listening", id: 1, channel: "widget" }), "*"); });
       cut(print, prints.indexOf(print));
       film.querySelector(".shut").focus();
     });
   });
 
-  /* each sheet's pieces land as it comes into view */
-  var still = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!still && "IntersectionObserver" in window) {
-    var io = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("pulling"); io.unobserve(e.target); } }); }, { threshold: 0.12 });
+  /* each sheet's pieces land once it is well onto the screen, not while its edge is still sliding in; the first
+     waits (briefly) for its type and Tay's photo, so they arrive with their pieces instead of popping in after */
+  if (document.documentElement.classList.contains("pull")) {
+    var ready = function (print) {
+      var waits = Array.prototype.map.call(print.querySelectorAll("img"), function (im) { return im.decode ? im.decode().catch(function () {}) : null; });
+      if (document.fonts) waits.push(document.fonts.ready);
+      return Promise.race([Promise.all(waits), new Promise(function (r) { setTimeout(r, 900); })]);
+    };
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        io.unobserve(e.target);
+        ready(e.target).then(function () { cut(e.target, prints.indexOf(e.target)); e.target.classList.add("pulling"); });
+      });
+    }, { rootMargin: "0px 0px -40% 0px" });
     prints.forEach(function (p) { io.observe(p); });
   }
 })();
